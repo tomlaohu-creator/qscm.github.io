@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 小龍蝦AI隨身碟｜台灣官方授權官網</title>
+    <meta name="description" content="同源 openclaw.ai AI系統立體小龍蝦造型U盤，NT$4999單顆，買6送2、買12送5批量優惠，NT$12800內含全套教學課程，Windows/Mac隨插即用本地AI自動化工具">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocPurple: '#6366f1',
+                        ocCyan: '#06b6d4',
+                        ocDark: '#030014',
+                        lobsterRed: '#e62e22',
+                        cardPurple: '#191736'
+                    },
+                    fontFamily: {
+                        tw: ['Noto Sans TC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            html { scroll-behavior: smooth; }
+            /* 流動粒子漸變背景 */
+            .bg-main-gradient {
+                background: radial-gradient(circle at 15% 15%, rgba(99,102,241,0.18) 0%, transparent 55%),
+                            radial-gradient(circle at 85% 75%, rgba(6,182,212,0.12) 0%, transparent 55%),
+                            #030014;
+                animation: slowBgMove 24s ease-in-out infinite alternate;
+            }
+            @keyframes slowBgMove {
+                0% { transform: translate(0,0); }
+                100% { transform: translate(1.5%,1.5%); }
+            }
+            /* 玻璃卡片樣式 */
+            .glass-card {
+                background: #191736;
+                border: 1px solid rgba(255,255,255,0.08);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                border-radius: 0.75rem;
+            }
+            .glass-hover { transition: all 0.35s cubic-bezier(0.2, 0, 0.2, 1); }
+            .glass-hover:hover {
+                transform: translateY(-8px);
+                border-color: rgba(99,102,241,0.35);
+                box-shadow: 0 16px 48px rgba(99,102,241,0.15);
+            }
+            /* 圖片容器 - 純CSS漸變+圖標替代方案 */
+            .img-container { 
+                overflow: hidden; 
+                border-radius: 0.5rem; 
+                background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(6,182,212,0.08));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+            .img-placeholder {
+                text-align: center;
+                color: rgba(255,255,255,0.6);
+            }
+            .img-placeholder i {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                color: rgba(99,102,241,0.7);
+            }
+            .img-glow { box-shadow: 0 0 30px rgba(99,102,241,0.18); }
+            /* 輪播動畫 */
+            .carousel-track { display: flex; transition: transform 0.7s ease-out; }
+            /* 滾動淡入 */
+            .fade-block { opacity:0; transform: translateY(26px); transition: all 0.7s ease-out; }
+            .fade-block.show { opacity:1; transform: translateY(0); }
+            /* 按鈕光暈 */
+            .btn-purple { background:#6366f1; transition:0.35s; }
+            .btn-purple:hover { background:#4f46e5; box-shadow:0 0 22px rgba(99,102,241,0.4); }
+            .btn-cyan { background:#06b6d4; color:#030014; transition:0.35s; }
+            .btn-cyan:hover { background:#0891b2; box-shadow:0 0 22px rgba(6,182,212,0.4); }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-tw text-gray-100 bg-main-gradient min-h-screen overflow-x-hidden">
+    <!-- 固定導覽列 玻璃擬態 -->
+    <header class="fixed w-full top-0 z-50 glass-card">
+        <div class="container mx-auto px-6 py-4.5 flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-2.5 text-xl font-bold">
+                <i class="fa fa-hand-rock-o text-lobsterRed text-2xl"></i>
+                <span>OpenClaw <span class="text-ocPurple">小龍蝦AI U盤</span></span>
+            </a>
+            <!-- 電腦導航 -->
+            <nav class="hidden md:flex items-center gap-9 text-sm font-medium text-gray-300">
+                <a href="#gallery" class="hover:text-ocCyan transition duration-300">產品畫廊</a>
+                <a href="#price" class="hover:text-ocCyan transition duration-300">售價優惠</a>
+                <a href="#feature" class="hover:text-ocCyan transition duration-300">核心功能</a>
+                <a href="#package" class="hover:text-ocCyan transition duration-300">課程全套組</a>
+                <a href="#qa" class="hover:text-ocCyan transition duration-300">常見問答</a>
+                <a href="#price" class="px-5 py-2.5 rounded-lg btn-purple text-white">立即訂購</a>
+            </nav>
+            <!-- 手機漢堡按鈕 -->
+            <button class="md:hidden text-xl" id="menuToggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 手機下拉導航 -->
+        <div id="mobileNav" class="hidden md:hidden glass-card border-t border-white/10 px-6 py-5">
+            <div class="flex flex-col gap-4.5 text-gray-300">
+                <a href="#gallery" class="py-1.5 hover:text-ocCyan">產品畫廊</a>
+                <a href="#price" class="py-1.5 hover:text-ocCyan">售價優惠</a>
+                <a href="#feature" class="py-1.5 hover:text-ocCyan">核心功能</a>
+                <a href="#package" class="py-1.5 hover:text-ocCyan">課程全套組</a>
+                <a href="#qa" class="py-1.5 hover:text-ocCyan">常見問答</a>
+                <a href="#price" class="mt-3 text-center py-2.5 rounded-lg btn-purple text-white">立即訂購</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首頁大圖自動輪播 Hero 區【純CSS圖片替代方案】 -->
+    <section id="home" class="pt-36 pb-20 px-6 fade-block">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-20">
+                <div>
+                    <span class="text-ocCyan text-sm tracking-widest">台灣獨家硬體授權｜同源 openclaw.ai 系統</span>
+                    <h1 class="text-[clamp(2rem,5vw,3.6rem)] font-bold my-6 leading-tight">
+                        立體小龍蝦造型 OpenClaw AI隨身碟
+                    </h1>
+                    <p class="text-gray-400 text-base leading-relaxed mb-9 max-w-lg">
+                        完整內建官網同款離線AI自動化引擎，仿真蝦螯外觀隨插即用，無雲端訂閱費，所有機密資料本地儲存，適合電商營運、辦公自動化、AI教學團隊批量採購。
+                    </p>
+                    <div class="text-3xl font-bold text-lobsterRed mb-9">單顆特價 NT$4,999</div>
+                    <div class="flex flex-wrap gap-5">
+                        <a href="#price" class="px-8 py-3.5 rounded-lg btn-purple font-medium">查看團購優惠</a>
+                        <a href="#gallery" class="px-8 py-3.5 rounded-lg glass-card hover:border-ocCyan/40 transition">瀏覽完整產品畫廊</a>
+                    </div>
+                    <div class="mt-12 flex gap-7 text-sm text-gray-400">
+                        <span><i class="fa fa-check text-ocCyan mr-2"></i>Windows / Mac 雙系統支援</span>
+                        <span><i class="fa fa-check text-ocCyan mr-2"></i>台灣現貨全島免運</span>
+                    </div>
+                </div>
+                <!-- 首頁輪播：純CSS漸變+圖標，無需任何圖片 -->
+                <div class="glass-card p-2 rounded-2xl img-glow">
+                    <div class="overflow-hidden rounded-xl relative">
+                        <div class="carousel-track w-full" id="carousel">
+                            <div class="min-w-full img-wrap img-container h-[400px]">
+                                <div class="img-placeholder">
+                                    <i class="fa fa-usb"></i>
+                                    <h3 class="text-xl font-medium">小龍蝦U盤主視覺</h3>
+                                    <p class="text-sm text-gray-400">立體造型，隨插即用</p>
+                                </div>
+                            </div>
+                            <div class="min-w-full img-wrap img-container h-[400px]">
+                                <div class="img-placeholder">
+                                    <i class="fa fa-search-plus"></i>
+                                    <h3 class="text-xl font-medium">細節特寫</h3>
+                                    <p class="text-sm text-gray-400">仿真蝦螯紋理，精緻工藝</p>
+                                </div>
+                            </div>
+                            <div class="min-w-full img-wrap img-container h-[400px]">
+                                <div class="img-placeholder">
+                                    <i class="fa fa-laptop"></i>
+                                    <h3 class="text-xl font-medium">使用場景</h3>
+                                    <p class="text-sm text-gray-400">筆電隨插即用，自動化處理</p>
+                                </div>
+                            </div>
+                            <div class="min-w-full img-wrap img-container h-[400px]">
+                                <div class="img-placeholder">
+                                    <i class="fa fa-cubes"></i>
+                                    <h3 class="text-xl font-medium">批量包裝</h3>
+                                    <p class="text-sm text-gray-400">團購優惠，大量採購首選</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="prevBtn" class="absolute left-3 top-1/2 -translate-y-1/2 glass-card w-10 h-10 rounded-full flex items-center justify-center hover:text-ocCyan">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button id="nextBtn" class="absolute right-3 top-1/2 -translate-y-1/2 glass-card w-10 h-10 rounded-full flex items-center justify-center hover:text-ocCyan">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 完整產品實品畫廊【完全解決圖片載入問題】 -->
+    <section id="gallery" class="py-28 px-6 fade-block">
+        <div class="container mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">產品實品高清畫廊</h2>
+                <p class="text-gray-400">全方位展示小龍蝦造型、細節、使用場景與批量包裝</p>
+                <div class="w-16 h-[2px] bg-ocPurple/50 mx-auto mt-6"></div>
+            </div>
+
+            <!-- 第一組：立體蝦殼細節特寫【四欄布局完整保留】 -->
+            <h3 class="text-xl font-medium text-ocCyan mb-8">▸ 立體蝦殼細節特寫</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-24">
+                <!-- 蝦螯造型特寫 -->
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="px-4 pt-4 flex items-center gap-2 mb-3">
+                        <i class="fa fa-file-image-o text-ocCyan"></i>
+                        <h4 class="text-lg font-medium">蝦螯造型特寫</h4>
+                    </div>
+                    <div class="img-wrap img-container h-56 mx-4 rounded-lg">
+                        <div class="img-placeholder">
+                            <i class="fa fa-camera"></i>
+                            <p class="text-sm">立體凹凸紋路</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2 text-xl">仿真蝦螯立體外殼</h4>
+                        <p class="text-gray-400 text-sm">立體凹凸紋路，還原真實龍蝦外觀</p>
+                    </div>
+                </div>
+                <!-- 掛孔細節 -->
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="px-4 pt-4 flex items-center gap-2 mb-3">
+                        <i class="fa fa-file-image-o text-ocCyan"></i>
+                        <h4 class="text-lg font-medium">掛孔細節</h4>
+                    </div>
+                    <div class="img-wrap img-container h-56 mx-4 rounded-lg">
+                        <div class="img-placeholder">
+                            <i class="fa fa-link"></i>
+                            <p class="text-sm">隨身攜帶便利</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2 text-xl">隨身掛鏤空掛孔</h4>
+                        <p class="text-gray-400 text-sm">可搭配鑰匙圈、掛繩攜帶外出</p>
+                    </div>
+                </div>
+                <!-- USB接頭 -->
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="px-4 pt-4 flex items-center gap-2 mb-3">
+                        <i class="fa fa-file-image-o text-ocCyan"></i>
+                        <h4 class="text-lg font-medium">USB接頭</h4>
+                    </div>
+                    <div class="img-wrap img-container h-56 mx-4 rounded-lg">
+                        <div class="img-placeholder">
+                            <i class="fa fa-plug"></i>
+                            <p class="text-sm">高速傳輸介面</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2 text-xl">高速USB3.0傳輸介面</h4>
+                        <p class="text-gray-400 text-sm">大容量存放完整OpenClaw程式包</p>
+                    </div>
+                </div>
+                <!-- 整體側面外觀 -->
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="px-4 pt-4 flex items-center gap-2 mb-3">
+                        <i class="fa fa-file-image-o text-ocCyan"></i>
+                        <h4 class="text-lg font-medium">整體側面外觀</h4>
+                    </div>
+                    <div class="img-wrap img-container h-56 mx-4 rounded-lg">
+                        <div class="img-placeholder">
+                            <i class="fa fa-mobile"></i>
+                            <p class="text-sm">輕薄便攜</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2 text-xl">小巧輕薄機身</h4>
+                        <p class="text-gray-400 text-sm">不佔空間，口袋隨身攜帶無負擔</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二組：電腦使用場景圖 -->
+            <h3 class="text-xl font-medium text-ocCyan mb-8">▸ 電腦實際執行場景</h3>
+            <div class="grid md:grid-cols-2 gap-7 mb-24">
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="img-wrap img-container h-72">
+                        <div class="img-placeholder">
+                            <i class="fa fa-laptop"></i>
+                            <h3 class="text-xl font-medium">筆電操作介面</h3>
+                            <p class="text-sm text-gray-400">自動彈出控制面板</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2">筆電隨插即用操作介面</h4>
+                        <p class="text-gray-400 text-sm">插入自動彈出OpenClaw控制面板，繁體中文操作介面</p>
+                    </div>
+                </div>
+                <div class="glass-card glass-hover overflow-hidden img-glow">
+                    <div class="img-wrap img-container h-72">
+                        <div class="img-placeholder">
+                            <i class="fa fa-desktop"></i>
+                            <h3 class="text-xl font-medium">桌機批量處理</h3>
+                            <p class="text-sm text-gray-400">一鍵自動執行</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2">桌機批量自動化處理</h4>
+                        <p class="text-gray-400 text-sm">報表、爬蟲、社群排程一鍵自動執行</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第三組：批量團購 & 完整包裝 -->
+            <h3 class="text-xl font-medium text-ocCyan mb-8">▸ 批量團購與完整包裝組合</h3>
+            <div class="grid sm:grid-cols-3 gap-7">
+                <div class="glass-card glass-hover rounded-xl overflow-hidden img-glow">
+                    <div class="img-wrap img-container h-60">
+                        <div class="img-placeholder">
+                            <i class="fa fa-cubes"></i>
+                            <p class="text-sm">買6送2 團購套組</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2">買6送2 團購套組</h4>
+                        <p class="text-gray-400 text-sm">工作室小團隊分發專用</p>
+                    </div>
+                </div>
+                <div class="glass-card glass-hover rounded-xl overflow-hidden img-glow">
+                    <div class="img-wrap img-container h-60">
+                        <div class="img-placeholder">
+                            <i class="fa fa-cubes"></i>
+                            <p class="text-sm">買12送5 教學批量組</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2">買12送5 教學批量組</h4>
+                        <p class="text-gray-400 text-sm">AI課程學員完整配套教具</p>
+                    </div>
+                </div>
+                <div class="glass-card glass-hover rounded-xl overflow-hidden img-glow">
+                    <div class="img-wrap img-container h-60">
+                        <div class="img-placeholder">
+                            <i class="fa fa-gift"></i>
+                            <p class="text-sm">NT$12,800 課程全套包裝</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-medium mb-2">NT$12,800 課程全套包裝</h4>
+                        <p class="text-gray-400 text-sm">硬體+線上課程完整禮盒組</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 價格方案三欄區塊 -->
+    <section id="price" class="py-28 px-6 fade-block">
+        <div class="container mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold mb-4">台灣專屬定價與團購優惠</h2>
+                <p class="text-gray-400">教學單位、工作室批量採購享額外贈品</p>
+                <div class="w-16 h-[2px] bg-ocPurple/50 mx-auto mt-6"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-9">
+                <!-- 單顆零售 -->
+                <div class="glass-card glass-hover rounded-xl overflow-hidden">
+                    <div class="p-7 border-b border-white/10 text-center">
+                        <h3 class="text-xl font-medium">單顆零售方案</h3>
+                    </div>
+                    <div class="p-9 text-center">
+                        <div class="text-4xl font-bold text-lobsterRed mb-7">NT$4,999</div>
+                        <ul class="text-left space-y-3.5 text-gray-300 text-sm mb-10">
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>小龍蝦AI U盤 ×1</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>完整OpenClaw離線工具包</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>繁體基礎操作手冊</li>
+                            <li><i class="fa fa-times text-red-400 mr-3"></i>不含全套影音教學課程</li>
+                        </ul>
+                        <a href="#" class="block w-full py-3.5 rounded-lg glass-card border border-white/10 hover:border-ocPurple/40 transition">單顆直接下單</a>
+                    </div>
+                </div>
+                <!-- 買6送2 -->
+                <div class="glass-card glass-hover rounded-xl overflow-hidden relative border border-ocPurple/35">
+                    <span class="absolute top-0 right-0 px-3.5 py-1.5 bg-ocPurple text-xs rounded-bl-lg font-medium">熱銷團購</span>
+                    <div class="p-7 border-b border-white/10 text-center">
+                        <h3 class="text-xl font-medium">買6送2 團購組</h3>
+                    </div>
+                    <div class="p-9 text-center">
+                        <div class="text-4xl font-bold text-lobsterRed mb-7">6入到手8顆</div>
+                        <ul class="text-left space-y-3.5 text-gray-300 text-sm mb-10">
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>購6顆免費贈送2顆</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>共8顆完整功能U盤</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>全套Skill自動化模組預載</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>台灣本島全程免運配送</li>
+                        </ul>
+                        <a href="#" class="block w-full py-3.5 rounded-lg btn-purple">團購立即訂購</a>
+                    </div>
+                </div>
+                <!-- 買12送5 -->
+                <div class="glass-card glass-hover rounded-xl overflow-hidden relative border border-ocCyan/35">
+                    <span class="absolute top-0 right-0 px-3.5 py-1.5 bg-ocCyan text-ocDark text-xs rounded-bl-lg font-medium">教學首選</span>
+                    <div class="p-7 border-b border-white/10 text-center">
+                        <h3 class="text-xl font-medium">買12送5 大量採購</h3>
+                    </div>
+                    <div class="p-9 text-center">
+                        <div class="text-4xl font-bold text-ocCyan mb-7">12入到手17顆</div>
+                        <ul class="text-left space-y-3.5 text-gray-300 text-sm mb-10">
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>購12顆免費贈送5顆</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>共17顆適合學員分發</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>批量操作專屬教學檔案</li>
+                            <li><i class="fa fa-check text-ocCyan mr-3"></i>一對一遠端安裝技術協助</li>
+                        </ul>
+                        <a href="#" class="block w-full py-3.5 rounded-lg btn-cyan">批量採購諮詢</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 六大核心功能區 -->
+    <section id="feature" class="py-28 px-6 fade-block">
+        <div class="container mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold mb-4">OpenClaw 六大核心AI能力</h2>
+                <p class="text-gray-400">與官網雲端版本功能完全對等本地系統</p>
+                <div class="w-16 h-[2px] bg-ocPurple/50 mx-auto mt-6"></div>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-9">
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-desktop text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">隨插即用免安裝</h3>
+                    <p class="text-gray-400 text-sm">全部執行檔預存U盤，無需下載大型安裝包</p>
+                </div>
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-cogs text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">全電腦流程自動執行</h3>
+                    <p class="text-gray-400 text-sm">報表處理、網頁爬蟲、社群排程、檔案批次整理</p>
+                </div>
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-shield text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">本地離線隱私保護</h3>
+                    <p class="text-gray-400 text-sm">運算數據僅存U盤本機，不會自動上傳第三方伺服器</p>
+                </div>
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-comments text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">完整繁體中文指令支援</h3>
+                    <p class="text-gray-400 text-sm">台灣在地用語優化，口語白話直接下達工作指令</p>
+                </div>
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-puzzle-piece text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">數十種預載Skill模組</h3>
+                    <p class="text-gray-400 text-sm">電商、數據分析、辦公、社群營運工具一次備齊</p>
+                </div>
+                <div class="glass-card glass-hover p-9 rounded-xl">
+                    <div class="w-16 h-16 rounded-xl bg-ocPurple/15 flex items-center justify-center mb-7">
+                        <i class="fa fa-laptop text-xl text-ocPurple"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">可攜式移動AI工作站</h3>
+                    <p class="text-gray-400 text-sm">任何電腦插入即可啟動專屬獨立AI運行環境</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- U盤+課程全套組 -->
+    <section id="package" class="py-28 px-6 fade-block">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold mb-4">零基礎完整教學套組 NT$12,800</h2>
+                <p class="text-gray-400">硬體+影音課程+終身更新權益一次購足</p>
+                <div class="w-16 h-[2px] bg-ocPurple/50 mx-auto mt-6"></div>
+            </div>
+            <div class="glass-card rounded-2xl p-10 md:p-12 grid md:grid-cols-2 gap-12 items-center">
+                <div class="img-wrap img-container img-glow overflow-hidden rounded-xl h-[350px]">
+                    <div class="img-placeholder">
+                        <i class="fa fa-graduation-cap"></i>
+                        <h3 class="text-xl font-medium">完整教學套組</h3>
+                        <p class="text-sm text-gray-400">硬體+課程+終身更新</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-ocCyan mb-8">全套組完整內含項目</h3>
+                    <ul class="space-y-5 text-gray-300 text-base">
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>立體小龍蝦OpenClaw AI U盤 ×1</li>
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>零基礎入門完整線上影音教學課程</li>
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>電商/辦公自動化完整範本檔案庫</li>
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>一次一對一線上遠端手把手教學</li>
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>OpenClaw工具終身免費更新資格</li>
+                        <li><i class="fa fa-check-circle text-lobsterRed mr-3.5"></i>專屬學員社群永久諮詢權限</li>
+                    </ul>
+                    <a href="#" class="inline-block mt-10 px-10 py-4 rounded-lg btn-cyan font-medium text-lg">購買完整教學全套組</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ 常見問答 -->
+    <section id="qa" class="py-28 px-6 fade-block">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold mb-4">台灣消費者常見問答 FAQ</h2>
+                <div class="w-16 h-[2px] bg-ocPurple/50 mx-auto mt-6"></div>
+            </div>
+            <div class="space-y-6">
+                <details class="glass-card p-7 rounded-xl open:border-ocPurple/40">
+                    <summary class="font-medium text-xl cursor-pointer">Q1：小龍蝦U盤支援Windows與Mac作業系統嗎？</summary>
+                    <div class="mt-5 text-gray-400 text-sm pl-5 border-l-2 border-ocPurple/40">
+                        雙系統完整相容，Windows 10/11、全系列Mac OS皆可直接使用，插入隨身碟不需額外安裝驅動程式。
+                    </div>
+                </details>
+                <details class="glass-card p-7 rounded-xl">
+                    <summary class="font-medium text-xl cursor-pointer">Q2：買6送2、買12送5優惠可以搭配課程購買嗎？</summary>
+                    <div class="mt-5 text-gray-400 text-sm pl-5 border-l-2 border-ocPurple/40">
+                        團購優惠僅針對U盤本體數量贈送；若需要大量教學授權，可聯繫LINE客服取得教學單位專案優惠價格。
+                    </div>
+                </details>
+                <details class="glass-card p-7 rounded-xl">
+                    <summary class="font-medium text-xl cursor-pointer">Q3：台灣下單後多久可以收到商品？</summary>
+                    <div class="mt-5 text-gray-400 text-sm pl-5 border-l-2 border-ocPurple/40">
+                        當日18:00前完成付款現貨24小時內出貨，台灣本島宅配/超商約1–3個工作天，離島地區配送天數另計。
+                    </div>
+                </details>
+                <details class="glass-card p-7 rounded-xl">
+                    <summary class="font-medium text-xl cursor-pointer">Q4：單買U盤與課程套組更新權益差異？</summary>
+                    <div class="mt-5 text-gray-400 text-sm pl-5 border-l-2 border-ocPurple/40">
+                        單獨購買U盤享有半年免費工具更新；NT$12,800課程全套組為終身免費更新所有OpenClaw模組與自動化工具。
+                    </div>
+                </details>
+                <details class="glass-card p-7 rounded-xl">
+                    <summary class="font-medium text-xl cursor-pointer">Q5：適合作為AI教學課程分給學員使用嗎？</summary>
+                    <div class="mt-5 text-gray-400 text-sm pl-5 border-l-2 border-ocPurple/40">
+                        非常適合，買12送5大量採購方案專為教學團隊設計，搭配課程套組可直接提供學員完整一體化AI學習硬體教材。
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="py-16 px-6 border-t border-white/10">
+        <div class="container mx-auto grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <div class="text-xl font-bold flex items-center gap-2.5 mb-5">
+                    <i class="fa fa-hand-rock-o text-lobsterRed"></i>
+                    <span>OpenClaw <span class="text-ocPurple">小龍蝦AI U盤｜台灣官方</span></span>
+                </div>
+                <p class="text-gray-400 text-sm max-w-lg leading-relaxed">
+                    台灣獨家授權販售立體小龍蝦造型OpenClaw AI隨身碟，內建與 openclaw.ai 同源離線AI自動化系統，提供個人零售、工作室團購、AI教學完整配套方案，全台灣快速配送。
+                </p>
+                <div class="flex gap-6 mt-7 text-2xl text-gray-400">
+                    <a href="#" class="hover:text-ocCyan transition duration-300"><i class="fa fa-facebook-square"></i></a>
+                    <a href="#" class="hover:text-ocCyan transition duration-300"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="hover:text-ocCyan transition duration-300"><i class="fa fa-youtube-play"></i></a>
+                    <a href="#" class="hover:text-ocCyan transition duration-300"><i class="fa fa-comments"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-medium text-ocCyan mb-5">頁面導覽</h4>
+                <div class="space-y-3 text-sm text-gray-400">
+                    <a href="#gallery" class="block hover:text-white transition duration-300">產品高清畫廊</a>
+                    <a href="#price" class="block hover:text-white transition duration-300">售價與團購優惠</a>
+                    <a href="#feature" class="block hover:text-white transition duration-300">U盤完整AI功能</a>
+                    <a href="#package" class="block hover:text-white transition duration-300">教學課程全套組</a>
+                    <a href="#qa" class="block hover:text-white transition duration-300">常見問答</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-medium text-ocCyan mb-5">客服聯絡</h4>
+                <div class="space-y-3 text-sm text-gray-400">
+                    <p>LINE一對一專屬諮詢</p>
+                    <p>全台宅配 / 超商取貨</p>
+                    <p>客服營業時間 09:00–21:00</p>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto mt-14 pt-9 border-t border-white/10 text-center text-gray-500 text-sm">
+            © 2026 OpenClaw 小龍蝦U盤 台灣官方官網｜同源 openclaw.ai AI系統硬體產品
+        </div>
+    </footer>
+
+    <!-- 互動JS：手機選單 + 輪播 + 滾動淡入 -->
+    <script>
+        // 手機導航切換
+        const menuBtn = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        menuBtn.addEventListener('click', ()=>{
+            mobileNav.classList.toggle('hidden');
+        })
+        mobileNav.querySelectorAll('a').forEach(link=>{
+            link.addEventListener('click',()=>mobileNav.classList.add('hidden'))
+        })
+
+        // 首頁圖片自動輪播邏輯
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCount = 4;
+        let currentIndex = 0;
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        }
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        }
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        // 自動輪播 6秒切換
+        setInterval(nextSlide, 6000);
+
+        // 頁面滾動淡入動畫
+        const fadeBlocks = document.querySelectorAll('.fade-block');
+        function runFadeAnimation() {
+            fadeBlocks.forEach(block=>{
+                const rect = block.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 100) block.classList.add('show');
+            })
+        }
+        window.addEventListener('scroll', runFadeAnimation);
+        window.addEventListener('load', runFadeAnimation);
+    </script>
+</body>
+</html>
